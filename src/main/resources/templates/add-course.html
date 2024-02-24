@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<title>Add Course</title>
+</head>
+<body>
+	<div class="container">
+		<div class="col-md-3"></div>
+		<div class="card col-md-6">
+			<div class="card-header">
+				<h2 class="text-primary">Add Course</h2>
+			</div>
+			<form action="addCourse" method="post" th:object="${course}">
+				<div class="form-group">
+						<label class="form-label">Course Name</label> 
+						<input type="text"
+							class="form-control" th:field="*{name}" /> 
+							<label
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+							style="color: red;">Error</label>
+					</div>
+					<div>
+						<span style="color: red;" th:text="${msg}"></span>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Add Course</button>
+						<a th:href="@{/displayCourse}" class="btn btn-primary">Back</a>
+					</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

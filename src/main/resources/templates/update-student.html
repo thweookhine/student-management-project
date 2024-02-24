@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<title>Update Student</title>
+<style>
+
+	.student-gender {
+	margin-right: 20px;
+}
+
+.gender-box {
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+}
+
+.radio-gp {
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+	margin-right: 20px;
+}
+
+.edu-select {
+	padding: 5px;
+	margin-left: 30px;
+}
+.course-chk{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="card col-md-6">
+				<div class="card-header">
+					<h2 class="text-primary">Update Form</h2>
+				</div>
+				<form action="updateStudent" method="post"
+					th:object="${studentBean}">
+					<input type="hidden" th:field="*{id}" />
+					<div class="form-group">
+						<label class="form-label">Student Code</label> <input type="text"
+							class="form-control" th:field="*{code}" readonly="readonly" /> <label
+							th:if="${#fields.hasErrors('code')}" th:errors="*{code}"
+							style="color: red;">Error</label>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Student Name</label> <input type="text"
+							class="form-control" th:field="*{name}" /> <label
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+							style="color: red;">Error</label>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Student Dob</label> <input type="date"
+							class="form-control" th:field="*{dob}" /> <label
+							th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"
+							style="color: red;">Error</label>
+					</div>
+					<div class="form-group gender-box">
+						<label class="form-label">Student Gender</label>
+						<div class="radio-gp">
+							<input type="radio" class="form-check-input" id="Male"
+								th:field="*{gender}" value="Male" /><label
+								class="form-check-label" for="Male">Male</label>
+						</div>
+						<div class="radio-gp">
+							<input type="radio" class="form-check-input" id="Female"
+								th:field="*{gender}" value="Female" /><label
+								class="form-check-label" for="Female">Female</label>
+
+						</div>
+						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+							style="color: red;">Error</label>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Student Phone</label> <input type="text"
+							class="form-control" th:field="*{phone}" /> <label
+							th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+							style="color: red;">Error</label>
+					</div>
+					<div class="form-group">
+					<label class="form-label">Student Education</label> <select
+						class="form-select edu-select" th:field="*{education}">
+						<option th:each="e : ${eduList}" th:value="${e}" th:text="${e}"></option>
+					</select>
+					<label th:if="${#fields.hasErrors('education')}" th:errors="*{education}"
+						style="color: red;">Error</label>
+				</div>
+				<div class="form-group course-chk">
+					<label class="form-label">Student Courses</label> 
+					<div>
+						<input
+						type="checkbox" name="courses" th:each="courseName : ${courseNameList}"
+						th:text="${courseName}" th:value="${courseName}" th:field="*{courses}" />
+					</div>
+						<label th:if="${#fields.hasErrors('courses')}" th:errors="*{courses}"
+						style="color: red;">Error</label>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Update Student</button>
+					<a th:href="@{/displayStudent}" class="btn btn-primary">Back</a>
+					
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

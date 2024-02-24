@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<title>Add Student</title>
+<style>
+.student-gender {
+	margin-right: 20px;
+}
+
+.gender-box {
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+}
+
+.radio-gp {
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;
+	margin-right: 20px;
+}
+
+.edu-select {
+	padding: 5px;
+	margin-left: 30px;
+}
+
+.courses-grid{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="col-md-3"></div>
+		<div class="card col-md-6">
+			<div class="card-header">
+				<h2 class="text-primary">Add Student</h2>
+			</div>
+			<form action="addStudent" method="post" th:object="${student}">
+				<div class="form-group">
+					<label class="form-label">Student Name</label> <input type="text"
+						class="form-control" th:field="*{name}" /> <label
+						th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+						style="color: red;">Error</label>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Student Dob</label> <input type="date"
+						class="form-control" th:field="*{dob}" /> <label
+						th:if="${#fields.hasErrors('dob')}" th:errors="*{dob}"
+						style="color: red;">Error</label>
+				</div>
+				<div class="form-group gender-box">
+					<label class="form-label student-gender">Student Gender</label>
+					<div class="radio-gp">
+						<input type="radio" class="form-check-input" id="Male"
+							th:field="*{gender}" value="Male" /><label
+							class="form-check-label" for="Male">Male</label>
+					</div>
+					<div class="radio-gp">
+						<input type="radio" class="form-check-input" id="Female"
+							th:field="*{gender}" value="Female" /><label
+							class="form-check-label" for="Female">Female</label>
+
+					</div>
+					<label th:if="${#fields.hasErrors('dob')}" th:errors="*{gender}"
+						style="color: red;">Error</label>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Student Phone</label> <input type="text"
+						class="form-control" th:field="*{phone}" /> <label
+						th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+						style="color: red;">Error</label>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Student Education</label> <select
+						class="form-select edu-select" th:field="*{education}">
+						<option th:each="e : ${eduList}" th:value="${e}" th:text="${e}"></option>
+					</select>
+					<label th:if="${#fields.hasErrors('education')}" th:errors="*{education}"
+						style="color: red;">Error</label>
+				</div>
+				<div class="form-group">
+					<label class="form-label">Student Courses</label> 
+					
+						<input class=""
+						type="checkbox" name="courses" th:each="courseName : ${courseNameList}"
+						th:text="${courseName}" th:value="${courseName}" th:field="*{courses}" />
+					
+						<label th:if="${#fields.hasErrors('courses')}" th:errors="*{courses}"
+						style="color: red;">Error</label>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Add Student</button>
+					<a th:href="@{/displayStudent}" class="btn btn-primary">Back</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
